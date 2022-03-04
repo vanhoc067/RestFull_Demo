@@ -91,6 +91,8 @@ pymysql.install_as_MySQLdb()
 
 AUTH_USER_MODEL = 'courses.User'
 
+MEDIA_ROOT = '%s/courses/static/' % BASE_DIR
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.0/ref/settings/#auth-password-validators
