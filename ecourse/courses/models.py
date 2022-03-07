@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from ckeditor.fields import RichTextField
 
 
 class User(AbstractUser):
@@ -34,7 +35,7 @@ class Course(ModelBase):
 
 class Lesson(ModelBase):
     subject = models.CharField(max_length=255)
-    content = models.TextField()
+    content = RichTextField()
     image = models.ImageField(null=True, upload_to='lesson/%Y/%m')
     course = models.ForeignKey(Course,
                                related_name='lessons',

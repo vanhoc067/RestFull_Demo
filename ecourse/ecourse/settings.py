@@ -37,7 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'courses.apps.CoursesConfig'
+    'courses.apps.CoursesConfig',
+    'ckeditor',
+    'ckeditor_uploader'
+
 ]
 
 MIDDLEWARE = [
@@ -92,6 +95,8 @@ pymysql.install_as_MySQLdb()
 AUTH_USER_MODEL = 'courses.User'
 
 MEDIA_ROOT = '%s/courses/static/' % BASE_DIR
+
+CKEDITOR_UPLOAD_PATH = "images/lessons/"
 
 
 # Password validation
