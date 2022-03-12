@@ -1,8 +1,14 @@
-from rest_framework.serializers import ModelSerializer
-from .models import Course
+from rest_framework import serializers
+from .models import Category, Course
 
 
-class CourseSerializer(ModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = "__all__"
+
+
+class CourseSerializer(serializers.ModelSerializer):
     class Meta:
         model = Course
-        fields = ['id', 'subject', 'created_date', 'category']
+        fislds = "__all__"
