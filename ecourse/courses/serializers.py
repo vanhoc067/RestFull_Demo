@@ -50,3 +50,7 @@ class LessonSerializer(serializers.ModelSerializer):
         fields = ['id', 'subject', 'created_date', 'update_date', 'course_id', 'image', 'tags']
 
 
+class LessonDetailSerializer(LessonSerializer):
+    class Meta:
+        model = Lesson
+        fields = LessonSerializer.Meta.fields + ['content']

@@ -4,7 +4,7 @@ from rest_framework import viewsets, permissions, generics, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Category, Course, Lesson
-from .serializers import CategorySerializer, CourseSerializer, CoursePaginator, LessonSerializer
+from .serializers import CategorySerializer, CourseSerializer, CoursePaginator, LessonSerializer, LessonDetailSerializer
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -65,5 +65,5 @@ class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
 
 class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
     queryset = Lesson.objects.filter(active=True)
-    serializer_class = LessonSerializer
+    serializer_class = LessonDetailSerializer
 

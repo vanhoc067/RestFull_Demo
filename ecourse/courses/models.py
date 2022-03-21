@@ -57,4 +57,5 @@ class Tag(ModelBase):
         return self.name
 
 
-# Create your models here.
+class Comment(ModelBase):
+    content = models.TextField()
