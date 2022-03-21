@@ -32,6 +32,9 @@ class Course(ModelBase):
     class Meta:
         unique_together = ('subject', 'category')
 
+    def __str__(self):
+        return self.subject
+
 
 class Lesson(ModelBase):
     subject = models.CharField(max_length=255)
