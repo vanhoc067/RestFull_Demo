@@ -4,7 +4,9 @@ from rest_framework import viewsets, permissions, generics, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from .models import Category, Course, Lesson
-from .serializers import CategorySerializer, CourseSerializer, CoursePaginator, LessonSerializer, LessonDetailSerializer
+from .serializers import (CategorySerializer, CourseSerializer,
+                          CoursePaginator, LessonSerializer,
+                          LessonDetailSerializer, CommentSerializer)
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -66,4 +68,17 @@ class CourseViewSet(viewsets.ViewSet, generics.ListAPIView):
 class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
     queryset = Lesson.objects.filter(active=True)
     serializer_class = LessonDetailSerializer
+
+    @swagger_auto_schema(
+        operation_description='Get the comments og Lesson',
+        responses={
+            status.HTTP_200_OK: CommentSerializer()
+        }
+    )
+    @action(methods=['get'], url_path='comments', detail=True)
+    def get_comments(self, request, pk):
+        lesson = self.get_object()
+        comments = lesson.comment.select_related('user').filter(active=True)
+
+        return Response(CommentSerializer(comments, many=True).data, status=status.HTTP_200_OK)
 

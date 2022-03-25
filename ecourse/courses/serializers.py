@@ -1,5 +1,5 @@
 from rest_framework import serializers, pagination
-from .models import Category, Course, Lesson, Tag
+from .models import Category, Course, Lesson, Tag, Comment, User
 
 
 class CategorySerializer(serializers.ModelSerializer):
@@ -54,3 +54,20 @@ class LessonDetailSerializer(LessonSerializer):
     class Meta:
         model = Lesson
         fields = LessonSerializer.Meta.fields + ['content']
+
+
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name']
+
+
+class CommentSerializer(serializers.ModelSerializer):
+    user = UserSerializer()
+
+    class Meta:
+        model = Comment
+        exclude = ['active', 'lesson']
+
+
+

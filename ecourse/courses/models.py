@@ -59,3 +59,8 @@ class Tag(ModelBase):
 
 class Comment(ModelBase):
     content = models.TextField()
+    lesson = models.ForeignKey(Lesson,   related_name='comment', on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.content
