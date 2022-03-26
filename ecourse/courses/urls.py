@@ -8,6 +8,7 @@ router.register(prefix='categories', viewset=views.CategoryViewSet, basename="ca
 router.register(prefix='course', viewset=views.CourseViewSet, basename='course')
 router.register(prefix='lesson', viewset=views.LessonViewSet, basename='lesson')
 router.register(prefix='comments', viewset=views.CommentViewSet, basename='comment')
+router.register(prefix='users', viewset=views.UserViewSet, basename='user')
 
 urlpatterns = [
     # path('', views.index, name='course_index'),

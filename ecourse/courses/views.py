@@ -3,11 +3,11 @@ from django.http import HttpResponse
 from rest_framework import viewsets, permissions, generics, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Category, Course, Lesson, Comment
+from .models import Category, Course, Lesson, Comment, User
 from .serializers import (CategorySerializer, CourseSerializer,
                           CoursePaginator, LessonSerializer,
                           LessonDetailSerializer, CommentSerializer,
-                          CreateCommentsSerializer)
+                          CreateCommentsSerializer, UserSerializer)
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -97,4 +97,8 @@ class CommentViewSet(viewsets.ViewSet, generics.ListAPIView,generics.CreateAPIVi
 
         return [permissions.IsAuthenticated()]
 
+
+class UserViewSet(viewsets.ViewSet, generics.CreateAPIView):
+    queryset = User.objects.filter(is_active=True)
+    serializer_class = UserSerializer
 
