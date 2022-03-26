@@ -62,12 +62,18 @@ class UserSerializer(serializers.ModelSerializer):
         fields = ['first_name', 'last_name']
 
 
+class CreateCommentsSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Comment
+        fields = ['content', 'user', 'lesson']
+
+
 class CommentSerializer(serializers.ModelSerializer):
     user = UserSerializer()
 
     class Meta:
         model = Comment
-        exclude = ['active', 'lesson']
+        exclude = ['active']
 
 
 

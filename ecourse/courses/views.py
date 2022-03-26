@@ -3,10 +3,11 @@ from django.http import HttpResponse
 from rest_framework import viewsets, permissions, generics, status
 from rest_framework.decorators import action
 from rest_framework.response import Response
-from .models import Category, Course, Lesson
+from .models import Category, Course, Lesson, Comment
 from .serializers import (CategorySerializer, CourseSerializer,
                           CoursePaginator, LessonSerializer,
-                          LessonDetailSerializer, CommentSerializer)
+                          LessonDetailSerializer, CommentSerializer,
+                          CreateCommentsSerializer)
 from drf_yasg.utils import swagger_auto_schema
 
 
@@ -81,4 +82,19 @@ class LessonViewSet(viewsets.ViewSet, generics.RetrieveAPIView):
         comments = lesson.comment.select_related('user').filter(active=True)
 
         return Response(CommentSerializer(comments, many=True).data, status=status.HTTP_200_OK)
+
+
+class CommentViewSet(viewsets.ViewSet, generics.ListAPIView,generics.CreateAPIView):
+    queryset = Comment.objects.filter(active=True)
+    serializer_class = CreateCommentsSerializer
+    permission_classes = [permissions.IsAuthenticated]
+
+    def get_permission(self):
+        if self.action in ['update', 'delete']:
+            # request.user
+            # request.data.user
+            pass
+
+        return [permissions.IsAuthenticated()]
+
 

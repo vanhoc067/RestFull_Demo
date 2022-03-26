@@ -7,6 +7,7 @@ router = routers.DefaultRouter()
 router.register(prefix='categories', viewset=views.CategoryViewSet, basename="category")
 router.register(prefix='course', viewset=views.CourseViewSet, basename='course')
 router.register(prefix='lesson', viewset=views.LessonViewSet, basename='lesson')
+router.register(prefix='comments', viewset=views.CommentViewSet, basename='comment')
 
 urlpatterns = [
     # path('', views.index, name='course_index'),
