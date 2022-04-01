@@ -47,10 +47,18 @@ class LessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ['id', 'subject', 'created_date', 'update_date', 'course_id', 'image', 'tags']
+        fields = ['id', 'subject', 'created_date', 'update_date', 'course_id', 'image', 'tags', 'like']
 
 
 class LessonDetailSerializer(LessonSerializer):
+    like = serializers.SerializerMethodField()
+
+    def get_like(self, obj):
+        request = self.context['request']
+        if request.user.is_authenticated:
+            return obj.like_set.filter(user=request.user,
+                                       active=True).exists()  # phương thức exists trả về đối tượng true/false
+
     class Meta:
         model = Lesson
         fields = LessonSerializer.Meta.fields + ['content']
@@ -81,6 +89,15 @@ class UserSerializer(serializers.ModelSerializer):
                 }
 
         }
+
+    def create(self, validated_date):
+        data = validated_date.copy()
+
+        u = User(**data)
+        u.set_password(u.password)
+        u.save()
+
+        return u
 
 
 class CreateCommentsSerializer(serializers.ModelSerializer):

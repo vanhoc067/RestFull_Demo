@@ -64,3 +64,22 @@ class Comment(ModelBase):
 
     def __str__(self):
         return self.content
+
+
+class ActionBase(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    lesson = models.ForeignKey(Lesson, on_delete=models.CASCADE)
+
+    class Meta:
+        abstract = True
+        unique_together = ('user', 'lesson') #chỉ lưu mỗi người 1 lần, lần sau thì đè lên lần trc
+
+
+class Like(ActionBase):
+    active = models.BooleanField(default=False)
+
+
+class Rating(ActionBase):
+    rate = models.SmallIntegerField(default=0)
+
+
